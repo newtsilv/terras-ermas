@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Terras Ermas · voltando ao painel</title>
+<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#14110f;color:#e8dcc4;font:16px system-ui,sans-serif}a{color:#d9a441}</style>
+</head>
+<body>
+<p id="m">Voltando para o painel…</p>
+<script>
+  // Página de retorno do login do TikTok. Ela NÃO guarda nem envia nada para lugar nenhum:
+  // só repassa o código para o painel que roda no seu próprio computador (127.0.0.1).
+  // O código sozinho não serve para nada sem a chave secreta e o verificador PKCE, que ficam só na sua máquina.
+  var p = new URLSearchParams(location.search), q = new URLSearchParams();
+  ["code", "state", "error", "error_description", "scopes"].forEach(function (k) { if (p.get(k)) q.set(k, p.get(k)); });
+  var alvo = "http://127.0.0.1:3100/api/tiktok/callback?" + q.toString();
+  if (q.has("code") || q.has("error")) location.replace(alvo);
+  else document.getElementById("m").innerHTML = 'Página de retorno do painel Terras Ermas. Nada para fazer aqui.';
+</script>
+</body>
+</html>
